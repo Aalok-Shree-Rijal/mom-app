@@ -35,26 +35,34 @@ function startListening(onResult, onEnd) {
 
 async function speakWithMyVoice(text) {
   document.getElementById('statusBar').textContent = '💛 बोल्दैछु...';
-  
-  try {
-    const res = await fetch('http://127.0.0.1:5050/speak', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text })
-    });
-    
-    const blob = await res.blob();
-    const audio = new Audio(URL.createObjectURL(blob));
-    audio.play();
-    audio.onended = () => {
-      document.getElementById('statusBar').textContent = 'बोल्न माइक थिच्नुस् 🎙️';
-    };
-  } catch (err) {
-    // Fallback to browser TTS
-    console.warn('TTS server unavailable, using browser voice:', err);
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = 0.85;
-    window.speechSynthesis.speak(u);
-    document.getElementById('statusBar').textContent = 'बोल्न माइक थिच्नुस् 🎙️';
+
+  window.speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.rate = 0.8;
+  utterance.pitch = 1.0;
+  utterance.volume = 1;
+
+  // Wait for voices to load then pick best available
+  const setVoice = () => {
+    const voices = window.speechSynthesis.getVoices();
+    const voice =
+      voices.find(v => v.lang === 'ne-NP') ||
+      voices.find(v => v.lang === 'hi-IN') || // Hindi as fallback — close to Nepali
+      voices.find(v => v.name.includes('Google')) ||
+      voices[0];
+    if (voice) utterance.voice = voice;
+  };
+
+  if (window.speechSynthesis.getVoices().length) {
+    setVoice();
+  } else {
+    window.speechSynthesis.onvoiceschanged = setVoice;
   }
+
+  utterance.onend = () => {
+    document.getElementById('statusBar').textContent = 'बोल्न माइक थिच्नुस् 🎙️';
+  };
+
+  window.speechSynthesis.speak(utterance);
 }
