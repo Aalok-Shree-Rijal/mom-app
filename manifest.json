@@ -2,7 +2,7 @@
   "name": "A Message From Your Son",
   "short_name": "My Son",
   "description": "Your personal health and wellness companion",
-  "start_url": "/",
+  "start_url": "/mom-app/",
   "display": "standalone",
   "background_color": "#fdf6f0",
   "theme_color": "#c8956c",
