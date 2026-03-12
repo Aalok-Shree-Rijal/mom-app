@@ -1,13 +1,13 @@
 const CACHE_NAME = 'moms-companion-v2';
 const ASSETS = [
-  '/mom-app/',
-  '/mom-app/index.html',
-  '/mom-app/style.css',
-  '/mom-app/app.js',
-  '/mom-app/voice.js',
-  '/mom-app/ai.js',
-  '/mom-app/config.js',
-  '/mom-app/manifest.json'
+  './',
+  './index.html',
+  './style.css',
+  './app.js',
+  './voice.js',
+  './ai.js',
+  './config.js',
+  './manifest.json'
 ];
 
 self.addEventListener('install', e => {
