@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#c8956c"/>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="stylesheet" href="style.css"/>
+  <title>A Message From Your Son</title>
+  <link rel="icon" type="image/png" src="icons/icon-192.png">
+</head>
+<body>
+  <div id="app">
+
+    <div id="greeting">
+      <div class="avatar">💛</div>
+      <h1>नमस्ते सरस्वती आमा 🙏</h1>
+      <p>म तपाईंको बाबु।<br/>सधैं तपाईंको छेउमा छु।</p>
+
+      <button id="startBtn" class="big-btn">Tap to Talk to Me</button>
+    </div>
+
+    <div id="chatArea" class="hidden">
+      <div id="messages"></div>
+      <div id="statusBar">Tap the mic to speak 🎙️</div>
+        <button id="micBtn" class="mic-btn">🎙️</button>
+        <div id="quickActions">
+        <button class="quick-btn" data-msg="म तनावमा छु">😓 तनाव छ</button>
+        <button class="quick-btn" data-msg="मलाई शान्त हुन मद्दत गर्नुस्">🧘 शान्त हुन मद्दत</button>
+        <button class="quick-btn" data-msg="मेरो स्वास्थ्य जाँच गर्नुस्">💊 स्वास्थ्य जाँच</button>
+        <button class="quick-btn" data-msg="मलाई हौसला चाहिन्छ">💛 हौसला दिनुस्</button>
+      </div>
+    </div>
+
+  </div>
+  <script src="config.js"></script>
+  <script src="voice.js"></script>
+  <script src="ai.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+  </script>
+</body>
+</html>
