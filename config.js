@@ -1,1 +1,1 @@
-const CONFIG = { GROQ_KEY: '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' };
+const CONFIG = { GROQ_KEY: process.env.GROQ_API_KEY };
