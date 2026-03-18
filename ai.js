@@ -94,7 +94,7 @@ async function getAIResponse(userMessage) {
   document.getElementById('statusBar').textContent = '💭 सोच्दैछु...';
 
   try {
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const res = await fetch('https://mom-proxy.holyshot195.workers.dev', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${CONFIG.GROQ_KEY}`,

@@ -1,1 +1,1 @@
-const CONFIG = { GROQ_KEY: "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" };
+const CONFIG = {};
