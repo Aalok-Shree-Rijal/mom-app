@@ -86,10 +86,13 @@ function detectEmotion(text) {
 
 async function getAIResponse(userMessage) {
   const emotion = detectEmotion(userMessage);
-  const enriched = emotion !== 'neutral' ? `[आमा ${emotion} महसुस गर्दै हुनुहुन्छ] ${userMessage}` : userMessage;
+  const enriched = emotion !== 'neutral'
+    ? `[आमा ${emotion} महसुस गर्दै हुनुहुन्छ] ${userMessage}`
+    : userMessage;
 
   conversationHistory.push({ role: 'user', content: enriched });
-  if (conversationHistory.length > 10) conversationHistory = conversationHistory.slice(-10);
+  if (conversationHistory.length > 10)
+    conversationHistory = conversationHistory.slice(-10);
 
   document.getElementById('statusBar').textContent = '💭 सोच्दैछु...';
 
@@ -97,21 +100,17 @@ async function getAIResponse(userMessage) {
     const res = await fetch('https://mom-proxy.holyshot195.workers.dev', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${CONFIG.GROQ_KEY}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        max_tokens: 150,
-        messages: [
-          { role: 'system', content: MY_PERSONALITY },
-          ...conversationHistory
-        ]
+        message: enriched,
+        history: conversationHistory
       })
     });
 
     const data = await res.json();
-    const reply = data.choices[0].message.content;
+    const reply = data.reply;
+
     conversationHistory.push({ role: 'assistant', content: reply });
     return reply;
 
